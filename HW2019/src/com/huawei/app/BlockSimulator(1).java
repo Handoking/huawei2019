@@ -1,0 +1,513 @@
+package com.huawei.app;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.PriorityQueue;
+
+
+
+import com.huawei.app.Application.SkyEyes;
+import com.huawei.app.model.*;
+import com.huawei.app.model.Channel;
+
+/**
+ * 
+ * >模拟执行系统调配过程
+ *
+ *
+ * > 实现T时刻车辆占位的模拟器
+ * > 
+ * > 模拟过程是一个实时系统，每一时刻都执行车辆实时位置更新子任务、路口调度子任务、车辆上路子任务
+ * > 首先全道路实时更新处于RUNNING行为的车的位置，然后处理处于SCHEDULING的车、最后处理START行为的车
+ * > 每辆车在当前车道上可行最大车速V1、后一车道最大速度为V2,在路口前v1长度和路口后v2长度为，该车在路口的变道区
+ * > 
+ * > 1.首先处理位置更新队列中的所有车辆的位置，当更新的后的位置处于变道区时，则让规划器计算下一步的路径,
+ * > 更新CarStatus相关信息，设置SCHEDULING行为,并加入到路口调度队列当中
+ * > 2.首先车辆检查能否前行至路口，有车辆阻挡或者有残影占位时，将车辆前移。
+ * > 如果能够前行到路口，则检查下一道路能否容纳新车辆，如果不能将车辆前移
+ * > 如果能顺利通过路口，则检查当前路口是否为车辆的结束地点，若不是则将CarStatus更改相关信息，设置为RUNNING行为。
+ * > 注意任何车辆不能跨越T时刻的NullCar占位和真实存在的车
+ *
+ */
+public class BlockSimulator {
+
+
+	private SkyEyes ctx = null;
+    private Map<Integer,Car> cars = null;
+    private Map<Integer,Road> roads = null;
+    private Map<Integer,Cross> crosses = null;
+    private Map<Integer, CarAttr> statues=null;
+    
+    // 更新所有车在道路中位置的优先队列，
+    // 所有RUNNING行为的车
+    private PriorityQueue<CarAttr> runningQue = null;
+    
+    // 所有需要被路口调度的车,
+    // 所有SCHDULING的车
+    private PriorityQueue<CarAttr> schedulingQue = null;
+    
+    // 所有可以上路的车辆
+    // 所有START的车
+    private PriorityQueue<CarAttr> startQue = null;
+    
+    
+    // 当前系统时间
+    private int curSAT = 0;
+    
+    // 记录每一时刻内，位置更新和路口调度的计数
+    // 若无任何更新，则可能存在死锁，结束模拟
+    private int modCot = 0;
+    
+    // 在道路上行驶的车辆数量，
+    private int remCarCot = 0;
+    // 还有多少车还没有结束行程
+    // 用于控制模拟器结束
+    private int allCarCot = 0;
+    
+    //规划器
+    Evaluator evaluator = null;
+    
+    public BlockSimulator(SkyEyes ctx) {
+    	this.ctx= ctx; 
+    	cars = ctx.cars;
+    	roads=ctx.roads;
+    	crosses=ctx.crosses;
+    	runningQue = new PriorityQueue<>();
+    	schedulingQue = new PriorityQueue<>();
+    	startQue = new PriorityQueue<>();
+    }
+    
+	/**
+	 * >注册规划器
+	 * @param p
+	 */
+    
+    public void registerPlanner(Evaluator p) {
+    	this.evaluator = p;
+    }
+    
+    /**
+     * >初始化当前规划器
+     * >
+     */
+    public void init() {
+    	// 初始化所有CarStatus
+    	// 将所有准备上路的车加入的路口调度队列当中
+    	statues = new HashMap<>();
+    	cars.values().forEach(car->{
+    		CarAttr cs = new CarAttr(car.getCarId(), car,
+    					car.getStartTime());
+    		// 启动行为
+    		cs.action= CarAttr.CarStatus.START;
+    		cs.updateTime =car.getStartTime();
+    		
+    		cs.preCrossId = car.getStartPoint();
+    		// 获取道路出口的CrossId
+    		cs.nextCrossId = car.getStartPoint();
+    		// 假设准备上路为直走，并不影响路口调度
+    		cs.turnDirected=DriveDirection.FOWARD;
+    		statues.put(car.getCarId(),cs);
+    		// 添加准备上路的车辆
+    		startQue.add(cs);
+    	}); 
+    	ctx.statues=statues;
+   
+    	allCarCot = cars.size();
+    	// 设置系统时间为车辆最开始上路时间
+    	if(startQue.size()>0)
+    		curSAT = startQue.peek().updateTime;
+    	
+    }
+    
+    /**
+     * >执行模拟过程，返回模拟总时间
+     * 
+     * @return
+     */
+    public int run() {
+    	System.err.println("Simulator start run,AST="+curSAT+", car.size="+remCarCot);
+    	CarAttr cs = null;
+    	while(true) {
+    		// 当前模拟器中还有车辆在行驶
+    		// 重置操作计数
+    		modCot=0;
+    		
+    		// 首先处理道路中处于RUNNING行为的车辆位置更新
+    		while(!runningQue.isEmpty()&&
+    			(cs=runningQue.peek()).updateTime ==curSAT) {
+    			// 从running队列中取出当前时刻要更新位置的车辆
+    			runningQue.poll();
+    			// 更新cs的状态
+    			cs = updateRunningCarStatus(cs);
+    			if(cs.action== CarAttr.CarStatus.BLOCK_SCHEDULING) {
+    				// 车辆以处于变道区，提前进行路口规划
+    				cs.action= CarAttr.CarStatus.SCHEDULING;
+    				cs = schedulingCarStatus(cs);
+    			}
+    			
+    			if(cs.action== CarAttr.CarStatus.RUNNING)
+    				// 如果还没有到达变道区，
+    				runningQue.add(cs);
+    			else if(cs.action== CarAttr.CarStatus.SCHEDULING)
+    				// 如果到达变道区，加入到scheduling队列中
+    				schedulingQue.add(cs);
+    			else if(cs.action== CarAttr.CarStatus.STOP) {
+    				// 该车到达终点
+        			remCarCot--;
+        			allCarCot--;
+        			evaluator.onStop(cs.carId, cs.nextCrossId, curSAT);
+
+    			}
+    			
+    		}
+    		
+    		// 处理路口调度的车
+    		while(!schedulingQue.isEmpty()&&
+    			(cs=schedulingQue.peek()).updateTime ==curSAT) {
+    			// 从scheduling中取出要路口调度的车
+    			schedulingQue.poll();
+    			// 将车进行路口调度
+    			cs = schedulingCarStatus(cs);
+    			if(cs.action== CarAttr.CarStatus.RUNNING)
+    				// 路口调度成功，继续道路行驶
+    				runningQue.add(cs);
+    			else if(cs.action== CarAttr.CarStatus.SCHEDULING)
+    				// 上一时刻车辆通过路口失败，需要继续等待路口调度
+    				schedulingQue.add(cs);
+    			else if(cs.action== CarAttr.CarStatus.STOP) {
+    				// 该车到达终点
+        			remCarCot--;
+        			allCarCot--;
+        			evaluator.onStop(cs.carId, cs.nextCrossId, curSAT);
+
+    			}
+    				
+    		}
+    		
+    		// 处理准备上路的车
+    		while(!startQue.isEmpty()&&
+        			(cs=startQue.peek()).updateTime ==curSAT) {
+        			// 从scheduling中取出要路口调度的车
+    				startQue.poll();
+        			// 将车进行路口调度
+        			cs = startCarStatus(cs);
+        			if(cs.action== CarAttr.CarStatus.RUNNING)
+        				// 路口调度成功，继续道路行驶
+        				runningQue.add(cs);
+        			else if(cs.action== CarAttr.CarStatus.START)
+        				// 上一时刻车辆通过路口失败，需要继续等待路口调度
+        				startQue.add(cs);
+        		}
+    		System.out.println("Simulator modCot="+modCot+" curCar="+remCarCot+" car="+allCarCot);
+    		if(modCot==0) {System.err.println("Simulator may be dead locked!"); break;}
+    		if(allCarCot>0) curSAT++;//继续执行模拟
+    		else break;// 正常结束
+    		
+    	}// end while
+    	System.out.println("Simulator finished,AST="+curSAT);
+    	
+    	return curSAT;
+    }
+    
+
+    /**
+     * 更新当前汽车位置状态
+     * @param cs
+     * @return
+     */
+    private CarAttr updateRunningCarStatus(CarAttr cs) {
+    	Road curroad = roads.get(cs.curRoadId);
+    	// 获得当前行驶的车道
+    	Channel curChannel = curroad.
+    			getInCrossChannels(cs.nextCrossId)[cs.curChannelNum];
+    	CarAttr[] cc = curChannel.getChanel();
+    	int cLength = curChannel.getChannelLen();
+    	int loc= cs.locationOfChannel;
+    	if(loc>=cLength-cs.curRoadSpeed) {
+    		// 如果RUNNING行为的车已经在变道区时，需要提前进行路口规划
+    		// 直接更改为BLOCK_SCHEDULING,不修改时间
+    		cs.action= CarAttr.CarStatus.BLOCK_SCHEDULING;
+			cs.nextRoadId = evaluator.onScheduling(cs.carId, cs.nextCrossId);
+			if(cs.nextRoadId<0) 
+				cs.turnDirected = DriveDirection.FOWARD;
+			else
+				cs.turnDirected = crosses.get(cs.nextCrossId)
+					.getTurnDireByRoad(cs.curRoadId, cs.nextRoadId);
+    	}else {
+    		// 可以进行位置更新
+    		for(int i=1;i<=cs.curRoadSpeed;i++) {
+    			if(!_check(cc[++loc]))
+    				{loc--;break;}
+    			else
+    				// 清除路径上遇到的无效占位
+    				cc[loc] = null;// help GC
+
+    		}// end for
+    		
+    		// 如果车辆位置可以更新
+    		if(loc>cs.locationOfChannel) {
+    			modCot++;
+    			// 创建占位
+        		cc[cs.locationOfChannel]=createNullCar(cs.updateTime);
+        		// 更新车道
+        		cc[loc]=cs;
+        		cs.locationOfChannel =loc;
+    		} 
+
+    		cs.updateTime++;// 更新时间
+    		// 如果车辆进入了变道区，获得下一步行动路径
+    		if(loc>=cLength-cs.curRoadSpeed) {
+    			cs.action= CarAttr.CarStatus.SCHEDULING;
+    			// 获得下一步将要往那条路走
+    			// 若即将结束行程，nextRoadId为-1，turnDirected为自行
+    			cs.nextRoadId = evaluator.onScheduling(cs.carId, cs.nextCrossId);
+    			if(cs.nextRoadId<0) 
+    				cs.turnDirected = DriveDirection.FOWARD;
+    			else
+    				cs.turnDirected = crosses.get(cs.nextCrossId)
+    					.getTurnDireByRoad(cs.curRoadId, cs.nextRoadId);
+    		}
+    			
+    	}
+    	return cs;
+    }
+
+    private class CheckedResult{
+    	int channelId;// 车道号
+    	int channelLocal;// 车道内位置
+    	CheckedResult(int cId,int cLoc){
+    		this.channelId=cId;
+    		this.channelLocal=cLoc;
+    	}
+    }
+
+    public boolean _check(CarAttr cs) {
+    	return cs==null||(cs.carId<0&&cs.updateTime <curSAT);
+    }
+    private CheckedResult checkNextRoad(Channel[] rcs, int maxRange) {
+    	int cId=0,cLoc=0;
+    	CarAttr[] cc = null;
+    	for(cId=0;cId<rcs.length;cId++) {
+    		cc=rcs[cId].getChanel();
+    		if(!_check(cc[0])) continue;
+			for(cLoc=1;cLoc<maxRange;cLoc++) 
+				if(!_check(cc[cLoc]))break;	
+			cLoc--;
+			break;
+    	}// end for;
+    	// 车道无法进入
+    	if(cId>=rcs.length) 
+    		return null;
+    	else
+    		return new CheckedResult(cId,cLoc);
+    }
+    
+    /**
+     * 路口调度
+     * @param cs
+     * @return
+     */
+    private CarAttr schedulingCarStatus(CarAttr cs) {
+    	CarAttr[] cc =null;
+    	// 如果不是准备上路的车需要检查能否行驶到路口
+    	if(cs.action== CarAttr.CarStatus.SCHEDULING) {
+    		
+    		Road road = roads.get(cs.curRoadId);
+        	Channel curChannel = road.
+        			getInCrossChannels(cs.nextCrossId)[cs.curChannelNum];
+    		cc = curChannel.getChanel();
+    		// 记录第一次遇到占位的位置
+    		int recNullCarloc =curChannel.getChannelLen();
+    		int loc=cs.locationOfChannel;
+    		while(++loc<curChannel.getChannelLen()) {
+    			if(cc[loc]!=null) {
+    				// 记录第一个遇到的位置
+    				if(cc[loc].carId<0&&
+    						cc[loc].updateTime ==curSAT&&
+    						recNullCarloc==curChannel.getChannelLen())
+    					recNullCarloc=loc-1;
+    				// 在路口遇到阻塞，无法穿过路口
+    				if(cc[loc].carId>0) {loc--;break;}
+    			}
+    		}// end while
+
+    		////////////////////////////////////////////////////////////////
+    		// 无法行驶到路口////////////////////////////////////////////////
+    		if(loc<curChannel.getChannelLen()) {
+    			// 保持当前车行为SCEDULING
+    			// 
+    			loc=Math.min(recNullCarloc, loc);
+    			// 操作计数加一
+    			if(loc>cs.locationOfChannel) modCot++;
+    			// 设置残影
+    			cc[cs.locationOfChannel]=createNullCar(cs.updateTime);
+    			cc[loc]=cs;// 设置原来的位置
+    			cs.locationOfChannel = loc;
+    			// 更改时间
+    			cs.updateTime++;
+    			// 获得下一步将要往那条路走
+    			// 若即将结束行程，nextRoadId为-1，turnDirected为自行
+    			cs.nextRoadId = evaluator.onScheduling(cs.carId, cs.nextCrossId);
+    			if(cs.nextRoadId<0) 
+    				cs.turnDirected = DriveDirection.FOWARD;
+    			else
+    				cs.turnDirected = crosses.get(cs.nextCrossId)
+    					.getTurnDireByRoad(cs.curRoadId, cs.nextRoadId);
+    			return cs;// 不继续通过路口
+    		}
+    		
+    		//可以行驶到路口，
+    		if(cs.nextCrossId ==cs.car.getEndPoint()) {
+    			// 如果已经可以完成行程
+    			// 设置占位
+    			cs.action= CarAttr.CarStatus.STOP;
+    			cc[cs.locationOfChannel]=createNullCar(cs.updateTime);
+    			modCot++;
+    			return cs;
+    		}
+    		
+    		// 检查能否到进入下一条路
+    		road = roads.get(cs.nextRoadId);
+    		int nextRoadMaxSpeed = Math.min(road.getMaxRoadSpeed(),
+    				cs.car.getMaxSpeed());
+    		// 计算进入下一条道路最大可行长度
+    		int nrage = nextRoadMaxSpeed-
+    				(curChannel.getChannelLen()-cs.locationOfChannel -1);
+    		
+    		Channel[] rcs = road.getOutCrossChannels(cs.nextCrossId);
+    		CheckedResult ckres = null;
+    		
+    		////////////////////////////////////////////////////////////////
+    		// 当小于等于0或者下一条道无法进入更多的车时，无法跨越当前路口，
+    		// 将车前移到最近一个T时刻生成的残影占位
+    		// 如果无残影占位，则前移到车道最前端
+    		if(nrage<=0||(ckres=checkNextRoad(rcs,nrage))==null) {
+    			
+    			loc=recNullCarloc;
+    			if(loc==curChannel.getChannelLen())
+    				loc = curChannel.getChannelLen()-1;
+    			// 操作计数加一
+    			if(loc>cs.locationOfChannel) modCot++;
+    			// 设置占位
+    			cc[cs.locationOfChannel]=createNullCar(cs.updateTime);
+    			cc[loc]=cs;// 设置原来的位置
+    			cs.locationOfChannel = loc;
+    			// 更改时间
+    			cs.updateTime++;
+    			// 获得下一步将要往那条路走
+    			// 若即将结束行程，nextRoadId为-1，turnDirected为自行
+    			cs.nextRoadId = evaluator.onScheduling(cs.carId, cs.nextCrossId);
+    			if(cs.nextRoadId<0) 
+    				cs.turnDirected = DriveDirection.FOWARD;
+    			else
+    				cs.turnDirected = crosses.get(cs.nextCrossId)
+    					.getTurnDireByRoad(cs.curRoadId, cs.nextRoadId);
+    			return cs;// 不继续通过路口    			
+    		}
+    		
+    		////////////////////////////////////////////////////////////////
+    		// 当车可以跨越当前路口，检查是否为终点
+    		
+    		modCot++;
+    		// 生成一个T时刻的NullCar占位
+    		// 表明T时刻该位置有车、其他T时刻的车无法行驶到这
+			cc[cs.locationOfChannel]=createNullCar(cs.updateTime);
+			
+//			if(cs.nextCrossId==cs.car.getDesCrossId()) {
+//			// 若车辆已经到达终点
+//				cs.action=CarStatus.STOP;
+//				// cs.curSAT中保存这结束行程的时刻
+//				return cs;
+//			}
+			
+			cs.action= CarAttr.CarStatus.RUNNING;
+			// 更新道路中车最大速度
+			cs.curRoadSpeed = nextRoadMaxSpeed;
+			cs.curRoadId=cs.nextRoadId;
+			cs.curChannelNum =ckres.channelId;
+			cs.locationOfChannel =ckres.channelLocal;
+			cs.preCrossId =cs.nextCrossId;
+			cs.nextCrossId = road.getAnotherCrossId(cs.preCrossId);
+			cs.updateTime++;
+			// 记录行驶路径
+			cs.addRoadId(cs.curRoadId);
+			//更新新车道中的位置
+			cc = rcs[cs.curChannelNum].getChanel();
+			cc[cs.locationOfChannel]=cs;
+			return cs;
+   		
+    	}// end action=SCEHDULING
+    	
+    	// 出现无效Action出现在当前处理中
+    	else 
+    		throw new IllegalArgumentException("illegel Action "+cs.action);
+    }
+    
+    
+    private CarAttr startCarStatus(CarAttr cs) {
+    	// 处理准备上路的车
+    	CarAttr[] cc =null;
+    	if(cs.action== CarAttr.CarStatus.START) {
+    		// 规划器判断当前是否需要再使车辆上路
+    		if(!evaluator.onStart(cs.carId, cs.nextCrossId, remCarCot)) {
+    			// 不允许车辆上路,推迟上路
+    			cs.updateTime++;
+    			return cs;
+    		}
+    		
+    		//可以行驶到路口，检查能否到进入下一条路
+    		cs.nextRoadId  = evaluator.onScheduling(cs.carId, cs.nextCrossId);
+    		Road nextRoad = roads.get(cs.nextRoadId);
+    		int nextRoadMaxSpeed = Math.min(nextRoad.getMaxRoadSpeed(),
+    				cs.car.getMaxSpeed());
+    		// 下一条道路最大可行长度
+    		int nrage = nextRoadMaxSpeed;
+    		
+    		// 下一条车的车道
+    		Channel[] rcs = nextRoad.getOutCrossChannels(cs.nextCrossId);
+    		CheckedResult ckres = checkNextRoad(rcs, nrage);
+    		// 准备上路的车无法进入下一条道路
+    		if(ckres==null) {
+    			cs.updateTime++;
+        		return cs;
+    		}
+    		// 更新计数
+    		modCot++;
+    		// 更新车辆数量
+    		remCarCot++;
+			cs.action= CarAttr.CarStatus.RUNNING;
+			// 更新道路中车最大速度
+			cs.curRoadSpeed = nextRoadMaxSpeed;
+			cs.curRoadId=cs.nextRoadId;
+			cs.curChannelNum =ckres.channelId;
+			cs.locationOfChannel =ckres.channelLocal;
+			cs.preCrossId =cs.nextCrossId;
+			cs.nextCrossId = nextRoad.getAnotherCrossId(cs.preCrossId);
+			
+			// 记录最开始的时刻，记录行驶路径
+			cs.actDepartureTime =cs.updateTime;
+			cs.addRoadId(cs.curRoadId);
+			cs.updateTime++;
+			//更新新车道中的位置
+			cc = rcs[cs.curChannelNum].getChanel();
+			cc[cs.locationOfChannel]=cs;
+			return cs;
+    		
+    	}
+    	// 出现无效Action出现在当前处理中
+    	else 
+    		throw new IllegalArgumentException("illegel Action "+cs.action);
+    }
+    
+    
+    
+    /*
+     * >创建T时间的残影车用于占位
+     */
+    private CarAttr createNullCar(int t) {
+    	return new CarAttr(-1, null, t);
+    }
+    
+    
+	
+}
