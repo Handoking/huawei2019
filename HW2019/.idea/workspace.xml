@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6fffcb93-1793-499d-b304-61522d4032d5" name="Default Changelist" comment="" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>getStartCrossId</find>
+      <find>crossReIdx</find>
+      <find>crossIds</find>
+      <find>createCrossIdx</find>
+      <find>pathNode</find>
+      <find>CarAttr.</find>
+      <find>roadWinMean</find>
+      <find>initCarPath</find>
+      <find>crossFB</find>
+      <find>Intersection</find>
+      <find>BLOCK_SCHEDULING</find>
+      <find>compareTo</find>
+      <find>cross</find>
+      <find>crossId</find>
+      <find>system</find>
+      <find>println</find>
+      <find>ss</find>
+      <find>Scheduling</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>getStartPoint</replace>
+      <replace>CarAttr</replace>
+      <replace>Cross</replace>
+      <replace>hub</replace>
+      <replace>hubId</replace>
+      <replace>rs</replace>
+    </replaceStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/com/huawei/app/DynamicPathPlanner.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/ReRunPathPlanner.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/StaticPathPlanner.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/Planner.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/BlockSimulator.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/Direction.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/RoadChannel.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/Iostream.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/OutputConver.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/Brain.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/Simulator.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/test.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/Test.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/DynamicPathEvaluator.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/RoadCondition.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/DynamicPathEvaluator1.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/ReRunPathEvaluator.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/WinMean.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/TimeWinMean.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/FeedBack.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/TimeFB.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/Brain1.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/FormatUtils.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/FormatUtils.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/InputFormat.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/Simulator1.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/Compass.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/Car.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/Road.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/Cross.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/DriveDirection.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/Course.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/Channel.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/CarAttr.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/FigterStatus.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/Main.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/Brain.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/Ruler.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/KunFighter.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/FighterStatus.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/Application.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/SlidWin.java" />
+        <option value="$USER_HOME$/Desktop/DynamicPathEvaluator.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/Tunnel.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/Route.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/Hub.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/TimeSlidWin.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/model/Evaluator.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/SHIELD.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/app/Ada.java" />
+        <option value="$PROJECT_DIR$/src/com/huawei/MainTest.java" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="407" />
+    <option name="y" value="47" />
+    <option name="width" value="786" />
+    <option name="height" value="858" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554358578386" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../hwCom" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.huawei.app.model" />
+      <recent name="com.huawei.app" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\huawei\HW2019\src\com\huawei\app\model" />
+      <recent name="F:\huawei\HW2019\src\com\huawei\app" />
+      <recent name="F:\huawei\HW2019" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.MainTest">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.huawei.Main" />
+      <module name="HW2019" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.huawei.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.huawei.MainTest" />
+      <module name="HW2019" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.huawei.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SlidWin" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.huawei.app.model.SlidWin" />
+      <module name="HW2019" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.huawei.app.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.huawei.app.Test" />
+      <module name="HW2019" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.huawei.app.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MainTest" />
+        <item itemvalue="Application.SlidWin" />
+        <item itemvalue="Application.Test" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6fffcb93-1793-499d-b304-61522d4032d5" name="Default Changelist" comment="" />
+      <created>1552621013541</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1552621013541</updated>
+      <workItem from="1552621018204" duration="50689000" />
+      <workItem from="1552869971940" duration="105000" />
+      <workItem from="1552871141815" duration="33556000" />
+      <workItem from="1552975463948" duration="53358000" />
+      <workItem from="1553218681303" duration="22000" />
+      <workItem from="1553477584024" duration="60002000" />
+      <workItem from="1553751308362" duration="7742000" />
+      <workItem from="1553765912964" duration="1449000" />
+      <workItem from="1553824644596" duration="59923000" />
+      <workItem from="1554357616717" duration="989000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="267835000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1456" height="916" extended-state="6" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8026125" visible="true" weight="0.19842407" />
+      <window_info id="Structure" order="1" sideWeight="0.19738752" side_tool="true" weight="0.260745" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.26181355" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.25287357" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.46743295" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32950193" />
+      <window_info anchor="bottom" id="Duplicate detector" order="7" weight="0.32950193" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.41634738" />
+      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.256705" />
+      <window_info anchor="bottom" id="Database Changes" order="12" />
+      <window_info anchor="bottom" id="Version Control" order="13" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Database" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8026125" visible="true" weight="0.260745" />
+      <window_info id="Structure" order="1" sideWeight="0.19738752" side_tool="true" weight="0.260745" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.5951469" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.27713922" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.31162196" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32950193" />
+      <window_info anchor="bottom" id="Duplicate detector" order="7" weight="0.32950193" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32950193" />
+      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.19284803" />
+      <window_info anchor="bottom" id="Database Changes" order="12" />
+      <window_info anchor="bottom" id="Version Control" order="13" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Database" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/model/Answer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/Test.java" />
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/StaticPathEvaluator.java" />
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/BlockSimulator.java" />
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/DynamicPathEvaluator.java" />
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/Simulator.java" />
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/ReRunPathEvaluator.java" />
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/FormatUtils.java" />
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/Brain1.java" />
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/model/Compass.java" />
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/RoadCondition.java" />
+    <entry file="file://$PROJECT_DIR$/HW2019.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/log4j.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="9" column="58" lean-forward="true" selection-start-line="9" selection-start-column="58" selection-end-line="9" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/JDK/src.zip!/java/lang/Enum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="54" column="22" selection-start-line="54" selection-start-column="22" selection-end-line="54" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/model/Course.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="12" column="1" lean-forward="true" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/InputFormat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="111" column="16" selection-start-line="111" selection-start-column="16" selection-end-line="111" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/JDK/src.zip!/java/time/Instant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="206" column="19" selection-start-line="206" selection-start-column="19" selection-end-line="206" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="22" column="30" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/DynamicPathEvaluator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="146" column="39" lean-forward="true" selection-start-line="146" selection-start-column="39" selection-end-line="146" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/提交测试/code/CodeCraft-2019/src/com/huawei/app/Simulator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="178" column="17" lean-forward="true" selection-start-line="178" selection-start-column="17" selection-end-line="178" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/提交测试/code/CodeCraft-2019/src/com/huawei/app/DynamicPathPlanner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="191" column="68" lean-forward="true" selection-start-line="191" selection-start-column="68" selection-end-line="191" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/code/CodeCraft-2019/src/com/huawei/app/Simulator.java" />
+    <entry file="file://$USER_HOME$/Desktop/code/CodeCraft-2019/src/com/huawei/app/DynamicPathPlanner.java" />
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/Application.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="14" column="27" lean-forward="true" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/model/Tunnel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="14" column="34" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/model/Hub.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="15" column="46" lean-forward="true" selection-start-line="15" selection-start-column="46" selection-end-line="15" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/model/Evaluator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="32" column="22" lean-forward="true" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/model/KunFighter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="17" column="30" lean-forward="true" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/2068死锁CodeCraft_code/code/CodeCraft-2019/src/com/huawei/app/Ada.java" />
+    <entry file="file://$USER_HOME$/Desktop/CodeCraft_code/code/CodeCraft-2019/src/com/huawei/MainTest.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/CodeCraft_code/code/CodeCraft-2019/src/com/huawei/app/Ada.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="340" column="38" lean-forward="true" selection-start-line="340" selection-start-column="38" selection-end-line="340" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/Ada.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="35" column="27" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/model/Route.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="125" selection-start-line="125" selection-end-line="125" />
+          <folding>
+            <element signature="e#2824#2825#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/model/TimeSlidWin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/SHIELD.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="23" column="54" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1448#1449#0" expanded="true" />
+            <element signature="e#1478#1479#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/model/SlidWin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/MainTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="6" column="101" selection-start-line="6" selection-start-column="101" selection-end-line="6" selection-end-column="101" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/huawei/app/model/FighterStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1017">
+          <caret line="49" column="34" lean-forward="true" selection-start-line="49" selection-start-column="34" selection-end-line="49" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>HW2019</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>log4j-1.2.17</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
